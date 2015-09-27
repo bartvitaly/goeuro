@@ -25,20 +25,22 @@ public class Initialize {
 
 	public WebDriver driver;
 	final static Logger logger = Logger.getLogger(Initialize.class);
-	
+
 	@BeforeMethod(groups = { "demo" })
 	public WebDriver init() {
 
 		BasicConfigurator.configure();
 		String logLevel = PropertiesUtils.getProperty("log.level");
 		Logger.getRootLogger().setLevel(Level.toLevel(logLevel));
-		
+
 		String browser = PropertiesUtils.getProperty("browser");
-		String chromeDriver = PropertiesUtils.getProperty("webdriver.chrome.driver");
+		String chromeDriver = PropertiesUtils
+				.getProperty("webdriver.chrome.driver");
 
 		if (browser.equals("chrome")) {
 			File file = new File(chromeDriver);
-			System.setProperty("webdriver.chrome.driver", file.getAbsolutePath());
+			System.setProperty("webdriver.chrome.driver",
+					file.getAbsolutePath());
 			driver = new ChromeDriver();
 		} else if (browser.equals("firefox")) {
 			driver = new FirefoxDriver();
@@ -56,8 +58,8 @@ public class Initialize {
 	@AfterMethod(groups = { "demo" })
 	public void tear() {
 		WebDriverCommon.takeScreenshot(driver);
-//		driver.close();
-//		driver.quit();
+		// driver.close();
+		// driver.quit();
 	}
 
 }

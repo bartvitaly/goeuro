@@ -32,12 +32,12 @@ public class Common {
 
 	public static String arrayToString(String[] arr) {
 		StringBuilder builder = new StringBuilder();
-		for(String s : arr) {
-		    builder.append(s + " ");
+		for (String s : arr) {
+			builder.append(s + " ");
 		}
 		return builder.toString();
 	}
-	
+
 	public static String timestamp() {
 		DateFormat dateFormat = new SimpleDateFormat("yy/MM/dd HH:mm:ss");
 		Date date = new Date();
@@ -45,32 +45,39 @@ public class Common {
 		long time = date.getTime();
 		return String.valueOf(time);
 	}
-	
-	public static Locale getLocale() {
-		Pattern countryPattern = Pattern.compile(PropertiesUtils.getProperty("country"), Pattern.CASE_INSENSITIVE);
-		Pattern languagePattern = Pattern.compile(PropertiesUtils.getProperty("language"), Pattern.CASE_INSENSITIVE);
 
-	    for (Locale locale : Locale.getAvailableLocales()) {
-	        boolean isPrint = countryPattern.matcher(locale.getDisplayCountry()).find() && languagePattern.matcher(locale.getDisplayName()).find(); 
-	        if (!isPrint)
-	            continue;
-	        else
-	        	return locale;
-	    }
+	public static Locale getLocale() {
+		Pattern countryPattern = Pattern.compile(
+				PropertiesUtils.getProperty("country"),
+				Pattern.CASE_INSENSITIVE);
+		Pattern languagePattern = Pattern.compile(
+				PropertiesUtils.getProperty("language"),
+				Pattern.CASE_INSENSITIVE);
+
+		for (Locale locale : Locale.getAvailableLocales()) {
+			boolean isPrint = countryPattern
+					.matcher(locale.getDisplayCountry()).find()
+					&& languagePattern.matcher(locale.getDisplayName()).find();
+			if (!isPrint)
+				continue;
+			else
+				return locale;
+		}
 		return null;
 	}
-	
+
 	public static DateTime getDate(int numberOfDaysFromToday) {
 		DateTime dateTime = DateTime.now();
 		return dateTime.plusDays(numberOfDaysFromToday);
 	}
-	
+
 	public static String formatDate(DateTime dateTime, String format) {
 		DateTimeFormatter fmt = DateTimeFormat.forPattern(format);
 		return dateTime.toString(fmt);
 	}
-	
-	public static String readFile(String path, Charset encoding) throws IOException {
+
+	public static String readFile(String path, Charset encoding)
+			throws IOException {
 		byte[] encoded = Files.readAllBytes(Paths.get(path));
 		return new String(encoded, encoding);
 	}
@@ -79,13 +86,16 @@ public class Common {
 		Writer writer = null;
 
 		try {
-		    writer = new BufferedWriter(new OutputStreamWriter(
-		          new FileOutputStream(path), "utf-8"));
-		    writer.write(text);
+			writer = new BufferedWriter(new OutputStreamWriter(
+					new FileOutputStream(path), "utf-8"));
+			writer.write(text);
 		} catch (IOException ex) {
 		} finally {
-		   try {writer.close();} catch (Exception ex) {}
+			try {
+				writer.close();
+			} catch (Exception ex) {
+			}
 		}
 	}
-	
+
 }

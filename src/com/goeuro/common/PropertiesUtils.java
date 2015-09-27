@@ -11,7 +11,7 @@ public class PropertiesUtils {
 
 	final static String TEST_PROPERTIES = "\\goeuro.properties";
 	final static Logger logger = Logger.getLogger(PropertiesUtils.class);
-	
+
 	public static String getProperty(String key) {
 
 		Properties properties = new Properties();
@@ -24,7 +24,8 @@ public class PropertiesUtils {
 			e.printStackTrace();
 		}
 
-		logger.info("Property '" + key + "' with value '" + result + "' is retreived from file '" + TEST_PROPERTIES + "'");
+		logger.info("Property '" + key + "' with value '" + result
+				+ "' is retreived from file '" + TEST_PROPERTIES + "'");
 		return result;
 	}
 

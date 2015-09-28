@@ -11,6 +11,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.BeforeMethod;
 
 import com.goeuro.common.PropertiesUtils;
@@ -26,13 +27,15 @@ public class Initialize {
 	public WebDriver driver;
 	final static Logger logger = Logger.getLogger(Initialize.class);
 
-	@BeforeMethod(groups = { "demo" })
-	public WebDriver init() {
-
+	@BeforeGroups(groups = { "demo" })
+	public void setAppender() {		
 		BasicConfigurator.configure();
 		String logLevel = PropertiesUtils.getProperty("log.level");
 		Logger.getRootLogger().setLevel(Level.toLevel(logLevel));
-
+	}
+	
+	@BeforeMethod(groups = { "demo" })
+	public WebDriver init() {
 		String browser = PropertiesUtils.getProperty("browser");
 		String chromeDriver = PropertiesUtils
 				.getProperty("webdriver.chrome.driver");
@@ -52,7 +55,6 @@ public class Initialize {
 		driver.manage().deleteAllCookies();
 
 		return driver;
-
 	}
 
 	@AfterMethod(groups = { "demo" })

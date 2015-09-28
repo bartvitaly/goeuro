@@ -2,7 +2,7 @@ package test.java;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
-import org.apache.log4j.RollingFileAppender;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -22,15 +22,14 @@ import com.goeuro.pages.SearchPage;
  */
 public class SearchDemo extends Initialize {
 
-	private Logger logger;
+	private Logger logger = Logger.getLogger(this.getClass());
 	private SoftAssert m_assert;
 
+	@BeforeMethod(groups = { "demo" })
 	public void setUp() throws Exception {
-		logger = Logger.getLogger(this.getClass());
 		TestNGReportAppender appender = new TestNGReportAppender();
 		m_assert = appender.getAssert();
 		BasicConfigurator.configure(appender);
-		logger.addAppender(appender);
 	}
 
 	/**
@@ -56,7 +55,7 @@ public class SearchDemo extends Initialize {
 	 */
 	@Test(groups = { "demo" }, dataProvider = "demoProvider")
 	public void demoTest(RoutePlan routePlan) throws Exception {
-		setUp();
+//		setUp();
 		logger.info("Started demo test for");
 		driver.get(PropertiesUtils.getProperty("home"));
 
@@ -70,10 +69,7 @@ public class SearchDemo extends Initialize {
 		logger.info("Check sorting at the search page");
 		searchPage.checkSorting("price");
 
-		tearDown();
-	}
-
-	public void tearDown() throws Exception {
+		logger.removeAllAppenders();
 		m_assert.assertAll();
 	}
 

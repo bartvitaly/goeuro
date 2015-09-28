@@ -137,10 +137,10 @@ public class HomePage extends WebDriverCommon {
 		}
 		if (routePlan.accomodation != null
 				&& accommodationsFound.size() != routePlan.accomodation.length) {
-			logger.error("Not all the accommodations were found.");
-			logger.info("Accommodations found: " + accommodationsFound);
-			logger.info("Accomodations: "
-					+ Common.arrayToString(routePlan.accomodation));
+			logger.error("Not all the accommodations were found. \n Accommodations found: "
+					+ accommodationsFound
+					+ "\n Accomodations searched: "
+					+ Common.arrayToString(routePlan.accomodation) + "\n");
 		}
 	}
 
@@ -214,10 +214,10 @@ public class HomePage extends WebDriverCommon {
 				}
 			}
 			if (tabsClosed.size() != accommodation.length) {
-				logger.error("The number of closed tabs is not equal to accomodations number.");
-				logger.info("Tabs closed: " + tabsClosed);
-				logger.info("Accomodations: "
-						+ Common.arrayToString(accommodation));
+				logger.error("The number of closed tabs is not equal to accomodations number.\n Tabs closed: "
+						+ tabsClosed
+						+ "\nAccomodations: "
+						+ Common.arrayToString(accommodation) + "\n");
 			}
 		}
 	}

@@ -10,8 +10,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.RandomStringUtils;
@@ -36,6 +38,16 @@ public class Common {
 			builder.append(s + " ");
 		}
 		return builder.toString();
+	}
+
+	public static ArrayList<String> extractNumbers(String text) {
+		Pattern p = Pattern.compile("-?\\d+");
+		Matcher m = p.matcher(text);
+		ArrayList<String> result = new ArrayList<String>();
+		while (m.find()) {
+			result.add(m.group());
+		}
+		return result;
 	}
 
 	public static String timestamp() {
